@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>JavaScript insertBefore()</title>
+    <style>
+        .hw {
+            border: 1px solid rgba(230, 230, 230, 1);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="hv hw hx hy gz cp"><div><p class="bv b hz bx ia">Self2
+    </p></div></div>
+    <ul id="menu">
+        <li>Services</li>
+        <li>About</li>
+        <li>Contact</li>
+    </ul>
+    <script>
+        let menu = document.getElementById('menu');
+        // create a new li node
+        let li = document.createElement('li');
+        li.textContent = 'Home';
+
+        // insert a new node before the first list item
+        menu.insertBefore(li, menu.firstElementChild);
+    </script>
+</body>
+
+</html>

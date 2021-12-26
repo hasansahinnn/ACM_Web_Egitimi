@@ -1,0 +1,14 @@
+﻿@model Product
+
+
+
+
+
+
+
+<form method="post" asp-controller="Home" asp-action="Index">
+    <input type="number" asp-for="Id"/>
+    <input type="text"  asp-for="Name"/>
+    <input type="number"  asp-for="Quantity"/>
+    <input type="submit" value="Yeni Ürün Ekle" />
+</form>

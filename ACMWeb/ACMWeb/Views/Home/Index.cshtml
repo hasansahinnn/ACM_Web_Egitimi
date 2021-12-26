@@ -1,0 +1,99 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "Home Page";
+    List<Product> lastProductList = (List<Product>)ViewData["lastPoductList"];
+}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<input type="text" id="Name2" />
+
+
+<form method="post" asp-controller="Home" asp-action="Index" enctype="multipart/form-data">
+    <input type="number" id="Id" />
+    <input type="text" id="Name" />
+    <input type="number" id="Quantity" />
+    <input type="file" name="file" />
+    <input type="submit" value="Yeni Ürün Ekle" />
+</form>
+
+<button class="btn btn-primary" id="addnewBtn" onclick="AddNewProduct()">Ajax calistir</button>
+
+
+
+@await Html.PartialAsync("~/Views/Shared/_ProductListTable.cshtml", Model)
+<textarea>
+@Model.
+</textarea>
+<p>@Html.Raw("<h1>")</p>
+<div id="getpartialId">
+
+</div>
+
+@section Scripts{
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        function AddNewProduct() {
+            var productId = document.getElementById("Id").value
+            var productName = document.getElementById("Name").value
+            var productQuantity = document.getElementById("Quantity").value
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            $.ajax({
+                url: "/Home/CreateProduct",
+                type: "POST",
+                dataType: "json",
+                data: { __RequestVerificationToken:token, Id: productId, Name: productName, Quantity: productQuantity },
+                success: function (response) {
+                    $("#productListTable").append("<tr><td>" + response.id + "</td><td>" + response.name + "</td><td>" + response.quantity + "</td></tr>")
+                    document.getElementById("Id").value = ""
+                    document.getElementById("Name").value = ""
+                    document.getElementById("Quantity").value = ""
+                },
+                error: function (response) {
+                    alert(response);
+                }
+            });
+        }
+
+        function GetPartial() {
+            $.ajax({
+                url: "/Home/GetPartialTable",
+                type: "POST",
+                dataType: "html",
+                data: {},
+                success: function (content) {
+                    ShowError("islem basarili")
+                    $("#getpartialId").html(content)
+                },
+                error: function (response) {
+                    alert(response);
+                }
+            });
+        }
+
+    </script>
+
+}
