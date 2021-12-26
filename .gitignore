@@ -1,0 +1,11 @@
+*.editorconfig
+*/appsettings.Development.json
+*/bin/
+*/obj/
+*/Properties/serviceDependencies.local.json
+#*/Migrations/
+#*.csproj
+*/*.xml
+.vs/
+*.csproj.user
+*/Properties/serviceDependencies.local.json.user
